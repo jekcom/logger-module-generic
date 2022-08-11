@@ -2,16 +2,13 @@
 import dayjs = require('dayjs');
 export type RemoteLoggerType = (args: any, level: number, context: (string | null)) => void;
 export interface LoggerOptions {
-    deviceData: string;
-
     remoteLogger: RemoteLoggerType
 }
 export function configureLogger(options: LoggerOptions) {
-    Logger.DeviceData = options.deviceData;
     Logger.RemoteLogger = options.remoteLogger;
 }
 export default class Logger {
-    static DeviceData: string;
+    
     static RemoteLogger: RemoteLoggerType | null = null;
 
     _context: string;

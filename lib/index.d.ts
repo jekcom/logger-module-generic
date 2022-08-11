@@ -1,11 +1,9 @@
 export declare type RemoteLoggerType = (args: any, level: number, context: (string | null)) => void;
 export interface LoggerOptions {
-    deviceData: string;
     remoteLogger: RemoteLoggerType;
 }
 export declare function configureLogger(options: LoggerOptions): void;
 export default class Logger {
-    static DeviceData: string;
     static RemoteLogger: RemoteLoggerType | null;
     _context: string;
     Reset: string;
