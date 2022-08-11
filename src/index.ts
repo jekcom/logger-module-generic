@@ -8,14 +8,14 @@ export interface LoggerOptions {
 }
 export function configureLogger(options: LoggerOptions) {
     Logger.DeviceData = options.DeviceData;
-
+    Logger.RemoteLogger = options.remoteLogger;
 }
 export default class Logger {
     static DeviceData: string;
     static RemoteLogger: RemoteLoggerType | null = null;
 
     _context: string;
-  
+
 
 
     Reset = '\x1b[0m';
@@ -94,9 +94,9 @@ export default class Logger {
 
     private logRemote(args: any, level: number, context: (string | null)) {
         if (Logger.RemoteLogger) {
-            Logger.RemoteLogger(args,level,context)
+            Logger.RemoteLogger(args, level, context)
         }
-      
+
 
     }
 
