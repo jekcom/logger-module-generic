@@ -12,7 +12,7 @@ export function configureLogger(options: LoggerOptions) {
   Logger.RemoteLogger = options.remoteLogger;
 }
 
-enum ForeColor {
+export enum ForeColor {
   Black = "\x1b[30m",
   Red = "\x1b[31m",
   Green = "\x1b[32m",
@@ -23,7 +23,7 @@ enum ForeColor {
   White = "\x1b[37m",
 }
 
-enum BgColor {
+export enum BgColor {
   Black = "\x1b[40m",
   Red = "\x1b[41m",
   Green = "\x1b[42m",
