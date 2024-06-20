@@ -3,7 +3,7 @@ export interface LoggerOptions {
     remoteLogger: RemoteLoggerType;
 }
 export declare function configureLogger(options: LoggerOptions): void;
-declare enum ForeColor {
+export declare enum ForeColor {
     Black = "\u001B[30m",
     Red = "\u001B[31m",
     Green = "\u001B[32m",
@@ -13,7 +13,7 @@ declare enum ForeColor {
     Cyan = "\u001B[36m",
     White = "\u001B[37m"
 }
-declare enum BgColor {
+export declare enum BgColor {
     Black = "\u001B[40m",
     Red = "\u001B[41m",
     Green = "\u001B[42m",
@@ -38,4 +38,3 @@ export default class Logger {
     error(args: any, subContext?: string | null): void;
     private logRemote;
 }
-export {};
