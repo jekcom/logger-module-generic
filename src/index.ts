@@ -7,9 +7,11 @@ export type RemoteLoggerType = (
 ) => void;
 export interface LoggerOptions {
   remoteLogger: RemoteLoggerType;
+  isActive: boolean;
 }
 export function configureLogger(options: LoggerOptions) {
   Logger.RemoteLogger = options.remoteLogger;
+  Logger.isActive = options.isActive;
 }
 
 export enum ForeColor {
@@ -35,36 +37,41 @@ export enum BgColor {
 }
 export default class Logger {
   static RemoteLogger: RemoteLoggerType | null = null;
+  static isActive = true;
 
   _context: string;
 
   private Reset = "\x1b[0m";
-//   Bright = "\x1b[1m";
-//   Dim = "\x1b[2m";
-//   Underscore = "\x1b[4m";
-//   Blink = "\x1b[5m";
-//   Reverse = "\x1b[7m";
-//   Hidden = "\x1b[8m";
+  //   Bright = "\x1b[1m";
+  //   Dim = "\x1b[2m";
+  //   Underscore = "\x1b[4m";
+  //   Blink = "\x1b[5m";
+  //   Reverse = "\x1b[7m";
+  //   Hidden = "\x1b[8m";
 
-//   FgBlack = "\x1b[30m";
-//   FgRed = "\x1b[31m";
-//   FgGreen = "\x1b[32m";
-//   FgYellow = "\x1b[33m";
-//   FgBlue = "\x1b[34m";
-//   FgMagenta = "\x1b[35m";
-//   FgCyan = "\x1b[36m";
-//   FgWhite = "\x1b[37m";
+  //   FgBlack = "\x1b[30m";
+  //   FgRed = "\x1b[31m";
+  //   FgGreen = "\x1b[32m";
+  //   FgYellow = "\x1b[33m";
+  //   FgBlue = "\x1b[34m";
+  //   FgMagenta = "\x1b[35m";
+  //   FgCyan = "\x1b[36m";
+  //   FgWhite = "\x1b[37m";
 
-//   BgBlack = "\x1b[40m";
-//   BgRed = "\x1b[41m";
-//   BgGreen = "\x1b[42m";
-//   BgYellow = "\x1b[43m";
-//   BgBlue = "\x1b[44m";
-//   BgMagenta = "\x1b[45m";
-//   BgCyan = "\x1b[46m";
-//   BgWhite = "\x1b[47m";
+  //   BgBlack = "\x1b[40m";
+  //   BgRed = "\x1b[41m";
+  //   BgGreen = "\x1b[42m";
+  //   BgYellow = "\x1b[43m";
+  //   BgBlue = "\x1b[44m";
+  //   BgMagenta = "\x1b[45m";
+  //   BgCyan = "\x1b[46m";
+  //   BgWhite = "\x1b[47m";
 
-  constructor(context: string, private bgColor : BgColor = BgColor.Yellow, private foreColor : ForeColor = ForeColor.Black ) {
+  constructor(
+    context: string,
+    private bgColor: BgColor = BgColor.Yellow,
+    private foreColor: ForeColor = ForeColor.Black
+  ) {
     this._context = context;
   }
 
@@ -76,6 +83,9 @@ export default class Logger {
   }
 
   log(args: any, subContext: string | null = null) {
+    if (!Logger.isActive) {
+      return;
+    }
     let date = dayjs().format("HH:mm:ss.SSS ");
 
     // Stringify if passed object is not string
@@ -97,6 +107,9 @@ export default class Logger {
   }
 
   error(args: any, subContext: string | null = null) {
+    if (!Logger.isActive) {
+        return;
+      }
     let date = dayjs().format("HH:mm:ss.SSS ");
 
     if (args instanceof Error) {

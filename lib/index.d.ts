@@ -1,6 +1,7 @@
 export declare type RemoteLoggerType = (args: any, level: string, context: string | null, subContext: string | null) => void;
 export interface LoggerOptions {
     remoteLogger: RemoteLoggerType;
+    isActive: boolean;
 }
 export declare function configureLogger(options: LoggerOptions): void;
 export declare enum ForeColor {
@@ -27,6 +28,7 @@ export default class Logger {
     private bgColor;
     private foreColor;
     static RemoteLogger: RemoteLoggerType | null;
+    static isActive: boolean;
     _context: string;
     private Reset;
     constructor(context: string, bgColor?: BgColor, foreColor?: ForeColor);
